@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{72E9B5A6-9A1A-487E-922C-494E75B5EF81}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpellChecker.Lib</RootNamespace>
+    <AssemblyName>SpellChecker.Lib</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Extensions\GenericTypeExtensions.cs" />
+    <Compile Include="Extensions\LevenshteinPrecisionDistancesExtensions.cs" />
+    <Compile Include="Helpers\DamerauLevenshtein.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Models\TextValue.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpellCheckerMgr.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\a.dat">
+      <Link>BinFiles\a.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\b.dat">
+      <Link>BinFiles\b.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\c.dat">
+      <Link>BinFiles\c.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\d.dat">
+      <Link>BinFiles\d.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\e.dat">
+      <Link>BinFiles\e.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\f.dat">
+      <Link>BinFiles\f.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\g.dat">
+      <Link>BinFiles\g.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\h.dat">
+      <Link>BinFiles\h.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\i.dat">
+      <Link>BinFiles\i.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\j.dat">
+      <Link>BinFiles\j.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\k.dat">
+      <Link>BinFiles\k.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\l.dat">
+      <Link>BinFiles\l.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\m.dat">
+      <Link>BinFiles\m.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\n.dat">
+      <Link>BinFiles\n.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\o.dat">
+      <Link>BinFiles\o.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\p.dat">
+      <Link>BinFiles\p.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\q.dat">
+      <Link>BinFiles\q.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\r.dat">
+      <Link>BinFiles\r.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\s.dat">
+      <Link>BinFiles\s.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\t.dat">
+      <Link>BinFiles\t.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\u.dat">
+      <Link>BinFiles\u.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\v.dat">
+      <Link>BinFiles\v.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\w.dat">
+      <Link>BinFiles\w.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\x.dat">
+      <Link>BinFiles\x.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\y.dat">
+      <Link>BinFiles\y.dat</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SpellChecker.Wpf\bin\Debug\z.dat">
+      <Link>BinFiles\z.dat</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

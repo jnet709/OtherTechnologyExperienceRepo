@@ -1,0 +1,278 @@
+﻿<Window x:Class="SpellChecker.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="clr-namespace:SpellChecker.Wpf"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="Spell Checker Utility" 
+        Height="690" Width="1130">
+    <Window.Resources>
+
+        <ControlTemplate x:Key="validationTemplate">
+            <DockPanel>
+                <Ellipse 
+                  DockPanel.Dock="Right" 
+                  Margin="2,0"
+                  ToolTip="{Binding ElementName=errorAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                  Width="10" Height="10" >
+                    <Ellipse.Fill>
+                        <LinearGradientBrush>
+                            <GradientStop Color="#11FF1111" Offset="0" />
+                            <GradientStop Color="#FFFF0000" Offset="1" />
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Border BorderBrush="Red" BorderThickness="2" Margin="-1">
+                    <AdornedElementPlaceholder/>
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
+
+        <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                            Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Right Aligned Cell -->
+        <Style x:Key="RightAlignedCell" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                    <Setter Property="Background" Value="#356815" />
+                    <Setter Property="Foreground" Value="#e2fce2" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!-- Left Aligned Cell -->
+        <Style x:Key="LeftAlignedCell" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                    <Setter Property="Background" Value="#356815" />
+                    <Setter Property="Foreground" Value="#e2fce2" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!-- Center Aligned Cell -->
+        <Style x:Key="CenterAlignedCell" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                    <Setter Property="Background" Value="#356815" />
+                    <Setter Property="Foreground" Value="#e2fce2" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type TreeViewItem}">
+            <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded}">
+            </Setter>
+        </Style>
+        <ui:PathConverter x:Key="iconConverter"/>
+    </Window.Resources>
+
+    <DockPanel x:Name="dockPanelMain" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" LastChildFill="True" Background="White">
+
+        <StatusBar Height="25" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200*"/>
+                            <ColumnDefinition Width="200*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0">
+                <TextBlock  VerticalAlignment="Bottom" x:Name="textBlockStatusText" TextAlignment="Left">Ready</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1">
+                <ProgressBar Value="0" Minimum="0" Maximum="100" Width="200" Height="20" x:Name="progressBarStatus" IsIndeterminate="True" Foreground="Blue" BorderBrush="{x:Null}" Background="{x:Null}" />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="2">
+                <TextBlock  VerticalAlignment="Bottom" x:Name="textBlockStatusLastUpdated" TextAlignment="Left"></TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="3">
+                <TextBlock  VerticalAlignment="Bottom" x:Name="textBlockVersion" TextAlignment="Left" Margin="5,0,0,0"></TextBlock>
+            </StatusBarItem>
+        </StatusBar>
+        <Grid Name="gridMain" DockPanel.Dock="Top" Width="Auto" Height="Auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.ColumnSpan="2" Name="gridForFileDataGrids" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="270" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="180"/>
+                </Grid.RowDefinitions>
+                <DataGrid Name="dataGridDirectoryFiles"  Grid.Column="0" Grid.Row="0" 
+                              AutoGenerateColumns="False"
+                              AlternatingRowBackground="#CCFFCC" 
+                                AlternationCount="2" 
+                                FrozenColumnCount="2" 
+                                FontSize="13" 
+                                IsReadOnly="True" 
+                                GridLinesVisibility="Vertical" 
+                                SelectionMode="Single" 
+                                SelectionUnit="FullRow" Margin="5,5,10,0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=Name}" CellStyle="{StaticResource LeftAlignedCell}"  Header="File Name" Width="1*" />
+                        <DataGridTemplateColumn MinWidth="120" CellStyle="{StaticResource LeftAlignedCell}" Header="Command" Width="2*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Height="35" HorizontalAlignment="Left" Margin="14,0,0,6" Name="buttonReload" Tag="{Binding Path=Name}" VerticalAlignment="Bottom" Width="110" Click="buttonReload_Click">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Image Width="25" Height="35" Source="Resources\reload.png">
+                                                <Image.RenderTransform>
+                                                    <ScaleTransform ScaleX="1.0" ScaleY="1.0"/>
+                                                </Image.RenderTransform>
+                                            </Image>
+                                            <TextBlock Text="Reload" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5,0,5,0"></TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid Name="dataGridResults" Grid.Column="1" Grid.Row="0" 
+                            AutoGenerateColumns="False"
+                            AlternatingRowBackground="#CCFFCC" 
+                            AlternationCount="2" 
+                            FrozenColumnCount="2" 
+                            FontSize="13" 
+                            IsReadOnly="True" 
+                            GridLinesVisibility="Vertical" 
+                            SelectionMode="Single" 
+                            SelectionUnit="CellOrRowHeader"
+                            ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            Margin="0,5,6,0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=Name}" CellStyle="{StaticResource LeftAlignedCell}" Header="Name" Width="1*" />
+                        <DataGridTextColumn Binding="{Binding Path=Size}" CellStyle="{StaticResource LeftAlignedCell}" Header="Size" Width="1*" />
+                        <DataGridTextColumn Binding="{Binding Path=UpdatedDate, StringFormat=\{0:g\}}" CellStyle="{StaticResource LeftAlignedCell}" Header="Updated" Width="1*" />
+                        <DataGridTextColumn Binding="{Binding Path=RootDirectory}" CellStyle="{StaticResource LeftAlignedCell}" Header="Root Directory" Width="4*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Grid Grid.Row="1" Grid.Column="0" Name="gridGeneralCommands" ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    
+                    <GroupBox Grid.Column="0" Grid.Row="0" Header="General Commands" HorizontalAlignment="Stretch" Margin="10,10,5,0" VerticalAlignment="Stretch">
+
+                        <Grid Name="gridGeneralCommandsNested" VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="4*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Column="0" Grid.Row="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="45"/>
+                                </Grid.RowDefinitions>
+                                <Button Name="buttonReloadAll" Grid.Column="0" Grid.Row="0" Height="35" Margin="0,0,7,0" VerticalAlignment="Center" Click="buttonReloadAll_click" HorizontalAlignment="left" Width="110">
+                                    <StackPanel Orientation="Horizontal" ToolTip="Please click here select files to upload to selected group(s)" >
+                                        <Image Width="25" Height="25" Source="Resources\Reload.png">
+                                            <Image.RenderTransform>
+                                                <ScaleTransform ScaleX="1.0" ScaleY="1.0"/>
+                                            </Image.RenderTransform>
+                                        </Image>
+                                        <TextBlock Text="Reload All" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5,0,5,0"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                            
+
+                            <Grid Name="gridSearch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="45"/>
+                                    <RowDefinition Height="45"/>
+                                    <RowDefinition Height="45"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Searched word" ></TextBlock>
+                                <TextBox Grid.Row="0" Grid.Column="1" Name="textBoxSearchedWord"></TextBox>
+                                <Button Name="buttonBrowse" Grid.Column="2" Grid.Row="0" Height="35" Margin="0,0,7,0" VerticalAlignment="Center" Click="buttonBrowse_click" HorizontalAlignment="left" Width="110">
+                                    <StackPanel Orientation="Horizontal" ToolTip="Please click here select files to upload to selected group(s)" >
+                                        <Image Width="25" Height="25" Source="Resources\Reload.png">
+                                            <Image.RenderTransform>
+                                                <ScaleTransform ScaleX="1.0" ScaleY="1.0"/>
+                                            </Image.RenderTransform>
+                                        </Image>
+                                        <TextBlock Text="Browse" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5,0,5,0"/>
+                                    </StackPanel>
+                                </Button>
+                                <TextBlock Grid.Row="0" Grid.Column="3" Name="textBlockSearchResult" ></TextBlock>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Suggested words" ></TextBlock>
+                                <ComboBox Grid.Row="1" Grid.Column="1" Name="comboBoxSuggestedWords"></ComboBox>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Levenshtein precisions" ></TextBlock>
+                                <ComboBox Grid.Row="2" Grid.Column="1" Name="comboBoxLevenshteinPrecisions" SelectionChanged="comboBoxLevenshteinPrecisions_SelectionChanged"></ComboBox>
+                            </Grid>
+                        </Grid>
+
+                    </GroupBox>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>

@@ -1,0 +1,4 @@
+C:\TrongDotNet2015\SpellChecker\SpellChecker.Lib\bin\Debug\SpellChecker.Lib.dll
+C:\TrongDotNet2015\SpellChecker\SpellChecker.Lib\bin\Debug\SpellChecker.Lib.pdb
+C:\TrongDotNet2015\SpellChecker\SpellChecker.Lib\obj\Debug\SpellChecker.Lib.dll
+C:\TrongDotNet2015\SpellChecker\SpellChecker.Lib\obj\Debug\SpellChecker.Lib.pdb
