@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EnglishWordModelStoreContainer" CdmEntityContainer="EnglishWordEntities">
+    <EntitySetMapping Name="words">
+      <EntityTypeMapping TypeName="EnglishWordModel.word">
+        <MappingFragment StoreEntitySet="word">
+          <ScalarProperty Name="word_id" ColumnName="word_id" />
+          <ScalarProperty Name="phonetic_value" ColumnName="phonetic_value" />
+          <ScalarProperty Name="word_status_id" ColumnName="word_status_id" />
+          <ScalarProperty Name="edit_date_time" ColumnName="edit_date_time" />
+          <ScalarProperty Name="edit_user_id" ColumnName="edit_user_id" />
+          <ScalarProperty Name="server_sync_time" ColumnName="server_sync_time" />
+          <ScalarProperty Name="local_sync_time" ColumnName="local_sync_time" />
+          <ScalarProperty Name="word_guid" ColumnName="word_guid" />
+          <ScalarProperty Name="import_link" ColumnName="import_link" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

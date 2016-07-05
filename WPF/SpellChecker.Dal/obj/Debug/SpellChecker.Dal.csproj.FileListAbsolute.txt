@@ -1,0 +1,9 @@
+C:\TrongDotNet2015\SpellChecker\SpellChecker.Dal\bin\Debug\SpellChecker.Dal.dll.config
+C:\TrongDotNet2015\SpellChecker\SpellChecker.Dal\bin\Debug\SpellChecker.Dal.dll
+C:\TrongDotNet2015\SpellChecker\SpellChecker.Dal\bin\Debug\SpellChecker.Dal.pdb
+C:\TrongDotNet2015\SpellChecker\SpellChecker.Dal\bin\Debug\EntityFramework.dll
+C:\TrongDotNet2015\SpellChecker\SpellChecker.Dal\bin\Debug\EntityFramework.SqlServer.dll
+C:\TrongDotNet2015\SpellChecker\SpellChecker.Dal\bin\Debug\EntityFramework.xml
+C:\TrongDotNet2015\SpellChecker\SpellChecker.Dal\bin\Debug\EntityFramework.SqlServer.xml
+C:\TrongDotNet2015\SpellChecker\SpellChecker.Dal\obj\Debug\SpellChecker.Dal.dll
+C:\TrongDotNet2015\SpellChecker\SpellChecker.Dal\obj\Debug\SpellChecker.Dal.pdb

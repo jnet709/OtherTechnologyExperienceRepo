@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EnglishWordModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="word">
+    <Key>
+      <PropertyRef Name="word_id" />
+    </Key>
+    <Property Name="word_id" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="phonetic_value" Type="nvarchar" MaxLength="4" />
+    <Property Name="word_status_id" Type="int" Nullable="false" />
+    <Property Name="edit_date_time" Type="datetime" />
+    <Property Name="edit_user_id" Type="int" />
+    <Property Name="server_sync_time" Type="datetime" />
+    <Property Name="local_sync_time" Type="datetime" />
+    <Property Name="word_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="import_link" Type="varchar" MaxLength="32" />
+  </EntityType>
+  <EntityContainer Name="EnglishWordModelStoreContainer">
+    <EntitySet Name="word" EntityType="Self.word" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
