@@ -1,0 +1,1 @@
+This is my WPF application that is a simple spell- checker for the English language.
